@@ -27,13 +27,14 @@ char* str_cat(char** dest, const char* source) {
   if (!dest) return NULL;
   if (!*dest) return str_cpy(dest, source);
   if (source) {
-    char* orig_dest = *dest;
+    char* result;
     size_t src_size = strlen(source) + 1;
-    size_t dst_len = strlen(orig_dest);
-    if (*dest = realloc(orig_dest, dst_len + src_size)) {
-      if (source >= orig_dest && source <= orig_dest + dst_len)
-        source += *dest - orig_dest;
-      memcpy(*dest + dst_len, source, src_size);
+    size_t dst_len = strlen(*dest);
+    if (result = realloc(*dest, dst_len + src_size)) {
+      if (source >= *dest && source <= *dest + dst_len)
+        source += result - *dest;
+      memcpy(result + dst_len, source, src_size);
+      *dest = result;
     }
   }
   return *dest;
