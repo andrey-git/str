@@ -7,12 +7,11 @@
 #include <string.h>
  
 void str_free(char** ptr) {
-  if (ptr && *ptr) free(*ptr - sizeof(size_t));
+  if (*ptr) free(*ptr - sizeof(size_t));
 }
  
 char* str_cpy(char** dest, const char* source) {
-  if (!dest) return NULL;
-  if (source && *dest != source) {
+  if (source) {
     size_t src_len = strlen(source);
     size_t* result = malloc(src_len + 1 + sizeof(size_t));
     if (!result) return NULL;
@@ -25,8 +24,7 @@ char* str_cpy(char** dest, const char* source) {
 }
  
 char* str_cat(char** dest, const char* source) {
-  if (!*dest)
-    return str_cpy(dest, source);
+  if (!*dest) return str_cpy(dest, source);
   if (source) {
     char* orig_dest = *dest;
     size_t dst_len = *((size_t*)orig_dest - 1);
